@@ -36,6 +36,11 @@ class RecordingsController < ApplicationController
   end
 
   def update
+    # Handle cover image removal
+    if params[:recording][:remove_cover_image] == '1'
+      @recording.cover_image.purge
+    end
+    
     if @recording.update(recording_params)
       # Handle image uploads and create trips
       if params[:recording][:images].present?
@@ -60,7 +65,7 @@ class RecordingsController < ApplicationController
   end
 
   def recording_params
-    params.require(:recording).permit(:date, :time_start, :time_end, :gps_coordinates, :address, :city, :state, :title, :recorder_name)
+    params.require(:recording).permit(:date, :time_start, :time_end, :gps_coordinates, :address, :city, :state, :title, :recorder_name, :cover_image, :remove_cover_image)
   end
 
   def create_trips_from_images(images)
