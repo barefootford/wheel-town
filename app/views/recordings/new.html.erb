@@ -1,0 +1,102 @@
+<div class="min-h-screen bg-gray-50 py-12">
+  <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Header -->
+    <div class="text-center mb-8">
+      <h1 class="text-3xl font-bold text-gray-900 mb-2">Create New Recording</h1>
+      <p class="text-gray-600">Record your wheel adventure details</p>
+    </div>
+
+    <!-- Form Card -->
+    <div class="bg-white shadow-sm rounded-lg border border-gray-200">
+      <div class="px-6 py-8">
+        <%= form_with(model: @recording, local: true, class: "space-y-6") do |form| %>
+          <!-- Error Messages -->
+          <% if @recording.errors.any? %>
+            <div class="bg-red-50 border border-red-200 rounded-md p-4">
+              <div class="flex">
+                <div class="flex-shrink-0">
+                  <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                  </svg>
+                </div>
+                <div class="ml-3">
+                  <h3 class="text-sm font-medium text-red-800">
+                    There were <%= pluralize(@recording.errors.count, "error") %> with your submission:
+                  </h3>
+                  <ul class="mt-2 text-sm text-red-700 list-disc list-inside">
+                    <% @recording.errors.full_messages.each do |message| %>
+                      <li><%= message %></li>
+                    <% end %>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          <% end %>
+
+          <!-- Recording Title -->
+          <div>
+            <%= form.label :title, class: "block text-sm font-medium text-gray-700 mb-2" %>
+            <%= form.text_field :title, class: "w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500", placeholder: "Enter recording title" %>
+          </div>
+
+          <!-- Date and Time Row -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+              <%= form.label :date, class: "block text-sm font-medium text-gray-700 mb-2" %>
+              <%= form.date_field :date, class: "w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" %>
+            </div>
+            <div>
+              <%= form.label :time_start, "Start Time", class: "block text-sm font-medium text-gray-700 mb-2" %>
+              <%= form.time_field :time_start, class: "w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" %>
+            </div>
+            <div>
+              <%= form.label :time_end, "End Time", class: "block text-sm font-medium text-gray-700 mb-2" %>
+              <%= form.time_field :time_end, class: "w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" %>
+            </div>
+          </div>
+
+          <!-- Recorder Name -->
+          <div>
+            <%= form.label :recorder_name, class: "block text-sm font-medium text-gray-700 mb-2" %>
+            <%= form.text_field :recorder_name, class: "w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500", placeholder: "Who recorded this?" %>
+          </div>
+
+          <!-- Location Section -->
+          <div class="border-t border-gray-200 pt-6">
+            <h3 class="text-lg font-medium text-gray-900 mb-4">Location Details</h3>
+            
+            <!-- GPS Coordinates -->
+            <div class="mb-4">
+              <%= form.label :gps_coordinates, class: "block text-sm font-medium text-gray-700 mb-2" %>
+              <%= form.text_field :gps_coordinates, class: "w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500", placeholder: "e.g., 40.7128, -74.0060" %>
+            </div>
+
+            <!-- Address -->
+            <div class="mb-4">
+              <%= form.label :address, class: "block text-sm font-medium text-gray-700 mb-2" %>
+              <%= form.text_field :address, class: "w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500", placeholder: "Street address" %>
+            </div>
+
+            <!-- City and State Row -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <%= form.label :city, class: "block text-sm font-medium text-gray-700 mb-2" %>
+                <%= form.text_field :city, class: "w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500", placeholder: "City" %>
+              </div>
+              <div>
+                <%= form.label :state, class: "block text-sm font-medium text-gray-700 mb-2" %>
+                <%= form.text_field :state, class: "w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500", placeholder: "State" %>
+              </div>
+            </div>
+          </div>
+
+          <!-- Form Actions -->
+          <div class="flex flex-col sm:flex-row gap-3 pt-6 border-t border-gray-200">
+            <%= form.submit "Create Recording", class: "flex-1 bg-indigo-600 text-white py-2 px-4 rounded-md font-medium hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition duration-200" %>
+            <%= link_to "Cancel", root_path, class: "flex-1 text-center bg-gray-100 text-gray-700 py-2 px-4 rounded-md font-medium hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition duration-200" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
