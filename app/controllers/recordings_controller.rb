@@ -2,6 +2,20 @@ class RecordingsController < ApplicationController
   before_action :set_recording, only: [:show, :edit, :update]
 
   def show
+    @trips = @recording.trips.includes(image_attachment: :blob)
+    
+    # Aggregate data for charts
+    @helmet_data = @trips.group(:wearing_helmet).count
+    @gender_data = @trips.group(:gender_of_clothing).count
+    @vehicle_data = @trips.group(:vehicle).count
+    @electric_data = @trips.group(:electric).count
+    @child_data = @trips.group(:child).count
+    
+    # Calculate percentages
+    total_trips = @trips.count
+    @helmet_percentage = calculate_percentage(@helmet_data[true], total_trips)
+    @child_percentage = calculate_percentage(@child_data[true], total_trips)
+    @electric_percentage = calculate_percentage(@electric_data[true], total_trips)
   end
 
   def new
@@ -38,6 +52,11 @@ class RecordingsController < ApplicationController
 
   def set_recording
     @recording = Recording.find(params[:id])
+  end
+  
+  def calculate_percentage(count, total)
+    return 0 if total == 0
+    ((count.to_f / total) * 100).round(1)
   end
 
   def recording_params
