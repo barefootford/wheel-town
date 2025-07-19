@@ -28,7 +28,7 @@ class RecordingsController < ApplicationController
         create_trips_from_images(params[:recording][:images])
       end
       
-      redirect_to @recording, notice: 'Recording was successfully updated.'
+      redirect_to edit_recording_path(@recording), notice: 'Recording was successfully updated.'
     else
       render :edit, status: :unprocessable_entity
     end
@@ -51,6 +51,9 @@ class RecordingsController < ApplicationController
       trip = @recording.trips.build
       trip.image.attach(image)
       trip.save!
+      
+      # Analyze the image immediately after saving
+      trip.analyze_image
     end
   end
 end
