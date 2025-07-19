@@ -6,13 +6,15 @@ local:
   service: Disk
   root: <%= Rails.root.join("storage") %>
 
-# Use bin/rails credentials:edit to set the AWS secrets (as aws:access_key_id|secret_access_key)
-# amazon:
-#   service: S3
-#   access_key_id: <%= Rails.application.credentials.dig(:aws, :access_key_id) %>
-#   secret_access_key: <%= Rails.application.credentials.dig(:aws, :secret_access_key) %>
-#   region: us-east-1
-#   bucket: your_own_bucket-<%= Rails.env %>
+# Wasabi (S3-compatible) storage configuration using environment variables
+wasabi:
+  service: S3
+  access_key_id: <%= ENV['WASABI_ACCESS_KEY_ID'] %>
+  secret_access_key: <%= ENV['WASABI_SECRET_ACCESS_KEY'] %>
+  region: us-west-1
+  bucket: wheel-town
+  endpoint: https://s3.us-west-1.wasabisys.com
+  force_path_style: true
 
 # Remember not to checkin your GCS keyfile to a repository
 # google:
