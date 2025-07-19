@@ -2,20 +2,20 @@
 
 one:
   date: 2025-07-19
-  time: 2025-07-19 11:17:45
-  gps_coordinates: MyString
-  address: MyString
-  city: MyString
-  state: MyString
-  title: MyString
-  recorder_name: MyString
+  time_start: 2025-07-19 11:17:45
+  gps_coordinates: "40.7128,-74.0060"
+  address: "123 Main Street"
+  city: "New York"
+  state: "NY"
+  title: "Morning Bike Count"
+  recorder_name: "John Doe"
 
 two:
   date: 2025-07-19
-  time: 2025-07-19 11:17:45
-  gps_coordinates: MyString
-  address: MyString
-  city: MyString
-  state: MyString
-  title: MyString
-  recorder_name: MyString
+  time_start: 2025-07-19 14:30:00
+  gps_coordinates: "40.7589,-73.9851"
+  address: "456 Broadway"
+  city: "New York"
+  state: "NY"
+  title: "Afternoon Traffic Survey"
+  recorder_name: "Jane Smith"
