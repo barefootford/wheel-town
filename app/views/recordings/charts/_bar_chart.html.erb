@@ -1,0 +1,28 @@
+<div class="space-y-3">
+  <% 
+    total = data.values.sum
+    max_value = data.values.max || 1
+  %>
+  
+  <% data.each do |label, value| %>
+    <% percentage = total > 0 ? (value.to_f / total * 100).round(1) : 0 %>
+    <% bar_width = max_value > 0 ? (value.to_f / max_value * 100) : 0 %>
+    
+    <div>
+      <div class="flex justify-between items-center mb-1">
+        <span class="text-sm font-medium text-gray-700 capitalize"><%= label || 'Unknown' %></span>
+        <span class="text-sm text-gray-600"><%= value %> (<%= percentage %>%)</span>
+      </div>
+      <div class="w-full bg-gray-200 rounded-full h-6 relative overflow-hidden">
+        <div 
+          class="h-full rounded-full transition-all duration-500 ease-out flex items-center justify-end pr-2"
+          style="width: <%= bar_width %>%; background-color: <%= colors[label] || '#6366f1' %>;"
+        >
+          <% if bar_width > 15 %>
+            <span class="text-xs text-white font-medium"><%= value %></span>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

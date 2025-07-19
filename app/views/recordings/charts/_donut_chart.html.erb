@@ -1,0 +1,42 @@
+<div class="relative">
+  <div class="w-48 h-48 mx-auto">
+    <svg class="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+      <% 
+        radius = 40
+        circumference = 2 * Math::PI * radius
+        stroke_dasharray = (percentage / 100.0 * circumference).round(2)
+        remaining_dasharray = circumference - stroke_dasharray
+      %>
+      
+      <!-- Background circle -->
+      <circle
+        cx="50"
+        cy="50"
+        r="<%= radius %>"
+        stroke="<%= secondary_color %>"
+        stroke-width="8"
+        fill="none"
+      />
+      
+      <!-- Progress circle -->
+      <circle
+        cx="50"
+        cy="50"
+        r="<%= radius %>"
+        stroke="<%= primary_color %>"
+        stroke-width="8"
+        fill="none"
+        stroke-dasharray="<%= stroke_dasharray %> <%= remaining_dasharray %>"
+        stroke-linecap="round"
+      />
+    </svg>
+    
+    <!-- Center text -->
+    <div class="absolute inset-0 flex items-center justify-center">
+      <div class="text-center">
+        <div class="text-3xl font-bold text-gray-900"><%= percentage %>%</div>
+        <div class="text-sm text-gray-600"><%= label %></div>
+      </div>
+    </div>
+  </div>
+</div>
