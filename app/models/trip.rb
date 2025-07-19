@@ -1,19 +1,18 @@
-require_relative 'open_client'
-
 class Trip < ApplicationRecord
   belongs_to :recording
-  has_one_attached :image
+  has_one_attached :image do |attachable|
+    attachable.variant :public, resize_to_limit: [800, 800]
+  end
 
   def analyze_image
     return unless image.attached?
-    
+
     # Get the image data as base64
     image_data = image.download
     base64_image = Base64.strict_encode64(image_data)
-    
-    # Analyze the image using OpenAI
+
     analysis = OpenClient.analyze_trip(base64_image)
-    
+
     # Update the trip record with the analysis results
     update!(
       vehicle: analysis["vehicle_type"],
@@ -24,7 +23,7 @@ class Trip < ApplicationRecord
       electric: analysis["electric"],
       child: analysis["child"]
     )
-    
+
     analysis
   end
 end
