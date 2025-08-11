@@ -1,6 +1,11 @@
+# SF Ruby AI Hackathon 
+
+This application was created as part of San Francisco Ruby Meetups 2025 AI Hackathon. It won third place. The programmers who created this are Andrew Ford and Nate Tate.
+
 # WheelTown
 
 WheelTown is a web application for collecting and analyzing automated bike lane usage statistics. It helps urban planners, transportation researchers, and advocacy groups gather comprehensive data about cycling infrastructure usage through photo-based data collection and AI-powered analysis.
+
 
 ## Features
 
